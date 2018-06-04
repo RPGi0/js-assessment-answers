@@ -1,4 +1,4 @@
-if ( typeof window === 'undefined' ) {
+if (typeof window === 'undefined' ) {
   require('../../app/arrays');
   var expect = require('chai').expect;
 }
@@ -54,6 +54,11 @@ describe('arrays', function() {
 
     expect(result).to.have.length(3);
     expect(result.join(' ')).to.eql('1 2 3');
+
+    var otherInput = [1, 2, 3, 2, 3];
+    var otherResult = arraysAnswers.truncate(otherInput);
+    expect(otherResult).to.have.length(4);
+    expect(otherResult.join(' ')).to.eql('1 2 3 2');
   });
 
   it('you should be able to add an item to the beginning of an array', function () {
