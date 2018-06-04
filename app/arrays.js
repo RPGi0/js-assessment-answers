@@ -50,18 +50,38 @@ exports.arraysAnswers = {
   },
 
   count: function (arr, item) {
-
+    var increment = 0;
+    for (var i = 0; i < arr.length; i++) {
+      if (arr[i] === item) increment++;
+    }
+    return increment;
   },
 
   duplicates: function (arr) {
+    var dup = {};
+    for (var i = 0; i < arr.length; i++) {
+      if (dup[arr[i]]) dup[arr[i]]++;
+      else dup[arr[i]] = 1;
+    }
 
+    var result = _.keys(_.pickBy(dup, function (val) {
+      return val > 1;
+    }));
+
+    return result.map(function (pos) {
+      return +pos;
+    });
   },
 
   square: function (arr) {
-
+    return arr.map(function (pos) {
+      return pos * pos;
+    })
   },
 
   findAllOccurrences: function (arr, target) {
-
+    return arr.map(function(v, k){
+      return v === target ? k : '';
+    }).filter(String);
   }
 };
