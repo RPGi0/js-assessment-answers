@@ -14,7 +14,7 @@ if ( typeof window === 'undefined' ) {
 
 describe('counter', function () {
   var nums;
-  var origConsoleLog;
+  var origConsoleLog = console.log;
 
   beforeEach(function () {
     nums = [];
@@ -24,8 +24,9 @@ describe('counter', function () {
         log: null
       };
     }
-    origConsoleLog = console.log;
+
     console.log = function (val) {
+      origConsoleLog(val);
       nums.push(val);
     };
 
