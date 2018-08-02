@@ -37,18 +37,45 @@ exports.functionsAnswers = {
   },
 
   useArguments: function() { // arguments
-
+    let sum = 0;
+    for (let i=0; i < arguments.length; i++) {
+      sum += arguments[i];
+    }
+    return sum;
   },
 
   callIt: function(fn) { // call
-
+    let args = Array.prototype.slice.call(arguments, 1, arguments.length);
+    return fn.apply(null, args);
   },
 
   partialUsingArguments: function(fn) {
-
+    let args = Array.prototype.slice.call(arguments, 1, arguments.length);
+    return function () {
+      let moreArgs = args.concat(args.slice.call(arguments));
+      return fn.apply(null, moreArgs)
+    };
   },
 
   curryIt: function(fn) {
+    function applyArgs(_fn, args) {
+      return _fn.apply(null, args);
+    }
 
-  }
+    function getArgsCollector(collectedArgs, expectedArgsCount) {
+      return function (currentArg) {
+        collectedArgs.push(currentArg);
+
+        let allArgsProvided = collectedArgs.length === expectedArgsCount;
+
+        if (allArgsProvided) {return applyArgs(fn, collectedArgs);}
+
+        return getArgsCollector(collectedArgs, expectedArgsCount);
+      };
+    }
+    return getArgsCollector([], fn.length);
+  },
+
 };
+
+

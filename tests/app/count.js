@@ -26,7 +26,7 @@ describe('counter', function () {
     }
 
     console.log = function (val) {
-      origConsoleLog(val);
+      // origConsoleLog(val);
       nums.push(val);
     };
 
